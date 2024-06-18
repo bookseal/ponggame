@@ -1,0 +1,36 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pong Game</title>
+    {% load static %} <!-- 여기에 static 태그 로드 추가 -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Pong Game</h1>
+        <div id="nickname-form" class="mt-4">
+            <form id="nicknameForm">
+                <div class="form-group">
+                    <label for="player1Nickname">Player 1 Nickname</label>
+                    <input type="text" class="form-control" id="player1Nickname" required>
+                </div>
+                <div class="form-group">
+                    <label for="player2Nickname">Player 2 Nickname</label>
+                    <input type="text" class="form-control" id="player2Nickname" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Start Game</button>
+            </form>
+        </div>
+        <div id="game-container" class="mt-4" style="display: none;">
+            <!-- 게임 화면 (Three.js) -->
+            <h3>Game Screen</h3>
+            <canvas id="gameCanvas"></canvas>
+        </div>
+    </div>
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
