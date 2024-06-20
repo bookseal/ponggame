@@ -1,4 +1,3 @@
-<!-- templates/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,9 +6,9 @@
     <title>Pong Game</title>
     {% load static %}
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'game/css/styles.css' %}">
 </head>
-<body>
+<body data-static-url="{% static '' %}">
     <div class="container">
         <h1 class="mt-5">Pong Game</h1>
         <div id="nickname-form" class="mt-4">
@@ -49,6 +48,7 @@
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'game/js/init.js' %}"></script>
+    <script src="{% static 'game/js/game.js' %}"></script>
 </body>
 </html>
