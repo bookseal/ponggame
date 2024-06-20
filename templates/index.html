@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pong Game</title>
-    {% load static %} <!-- 여기에 static 태그 로드 추가 -->
+    {% load static %}
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
@@ -22,16 +22,33 @@
                     <label for="player2Nickname">Player 2 Nickname</label>
                     <input type="text" class="form-control" id="player2Nickname" required>
                 </div>
+                <div class="form-group">
+                    <label for="ballSpeed">Ball Speed</label>
+                    <select class="form-control" id="ballSpeed" required>
+                        <option value="0.1">Slow</option>
+                        <option value="0.2" selected>Normal</option>
+                        <option value="0.3">Fast</option>
+                    </select>
+                </div>
                 <button type="submit" class="btn btn-primary">Start Game</button>
+                <button type="button" class="btn btn-secondary" id="practiceWithAI">Practice with AI</button>
             </form>
         </div>
         <div id="game-container" class="mt-4" style="display: none;">
-
-            <h3>Game Screen</h3>
-            <canvas id="gameCanvas"></canvas>
+            <div class="row">
+                <div class="col text-left">
+                    <h3 id="player1Name"></h3>
+                </div>
+                <div class="col text-right">
+                    <h3 id="player2Name"></h3>
+                </div>
+            </div>
+            <div id="threejs-container" style="width: 100%; height: 400px;">
+                <canvas id="gameCanvas"></canvas>
+            </div>
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="{% static 'js/main.js' %}?v={{ timestamp }}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
 </body>
 </html>
