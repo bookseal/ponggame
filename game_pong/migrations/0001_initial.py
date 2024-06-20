@@ -27,8 +27,8 @@ class Migration(migrations.Migration):
                 ('player1_score', models.IntegerField(verbose_name='Player 1 Score')),
                 ('player2_score', models.IntegerField(verbose_name='Player 2 Score')),
                 ('date_played', models.DateTimeField(auto_now_add=True, verbose_name='Date Played')),
-                ('player1', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='player1_games', to='game.player', verbose_name='Player 1')),
-                ('player2', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='player2_games', to='game.player', verbose_name='Player 2')),
+                ('player1', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='player1_games', to='game_pong.player', verbose_name='Player 1')),
+                ('player2', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='player2_games', to='game_pong.player', verbose_name='Player 2')),
             ],
         ),
     ]

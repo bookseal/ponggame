@@ -25,7 +25,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
-    'game',
+    'game_pong',
     'drf_yasg',
 ]
 
@@ -81,7 +81,7 @@ TEMPLATES = [
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'game/static'),
+    os.path.join(BASE_DIR, 'game_pong/static'),
 ]
 
 

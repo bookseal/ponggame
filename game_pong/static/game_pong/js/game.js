@@ -31,7 +31,7 @@ function initGame(player1Id, player2Id, ballSpeed, practiceWithAI, STATIC_URL) {
 
 function createFloor(scene, STATIC_URL) {
 		const textureLoader = new THREE.TextureLoader();
-		const floorTexture = textureLoader.load(STATIC_URL + 'game/images/floor_texture.png');
+		const floorTexture = textureLoader.load(STATIC_URL + 'game_pong/images/floor_texture.png');
 		floorTexture.wrapS = THREE.RepeatWrapping;
 		floorTexture.wrapT = THREE.RepeatWrapping;
 		floorTexture.repeat.set(10, 10);
@@ -46,7 +46,7 @@ function createFloor(scene, STATIC_URL) {
 
 function createBall(scene, ballSpeed, STATIC_URL) {
 		const textureLoader = new THREE.TextureLoader();
-		const ballTexture = textureLoader.load(STATIC_URL + 'game/images/bee_texture.png');
+		const ballTexture = textureLoader.load(STATIC_URL + 'game_pong/images/bee_texture.png');
 		const ballGeometry = new THREE.BoxGeometry(2, 2, 2);
 		const ballMaterial = new THREE.MeshBasicMaterial({ map: ballTexture });
 		const ball = new THREE.Mesh(ballGeometry, ballMaterial);
