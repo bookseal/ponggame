@@ -1,5 +1,3 @@
-// static/js/main.js
-
 document.getElementById('nicknameForm').addEventListener('submit', function(event) {
 		event.preventDefault();
 		setPlayers();
@@ -22,7 +20,6 @@ function setPlayers() {
 		.then(response => response.json())
 		.then(data => {
 				console.log('Players set:', data);
-				// 게임 화면으로 전환
 				document.getElementById('nickname-form').style.display = 'none';
 				document.getElementById('game-container').style.display = 'block';
 				initGame(data.player1_id, data.player2_id);
@@ -33,6 +30,4 @@ function setPlayers() {
 }
 
 function initGame(player1Id, player2Id) {
-		// Three.js 초기 설정 및 게임 시작
-		// player1Id와 player2Id를 사용하여 게임 상태 초기화
 }
