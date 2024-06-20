@@ -7,6 +7,9 @@
     {% load static %}
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'game/css/styles.css' %}">
+    <script>
+        const STATIC_URL = "{% static '' %}";
+    </script>
 </head>
 <body data-static-url="{% static '' %}">
     <div class="container">
@@ -47,6 +50,7 @@
             </div>
         </div>
     </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="{% static 'game_pong/js/init.js' %}"></script>
     <script src="{% static 'game_pong/js/game.js' %}"></script>

@@ -1,5 +1,4 @@
 // static/js/game.js
-
 function initGame(player1Id, player2Id, ballSpeed, practiceWithAI, STATIC_URL) {
 		const scene = new THREE.Scene();
 		const camera = new THREE.PerspectiveCamera(75, window.innerWidth / 400, 0.1, 1000);
@@ -14,12 +13,19 @@ function initGame(player1Id, player2Id, ballSpeed, practiceWithAI, STATIC_URL) {
 		const ball = createBall(scene, ballSpeed, STATIC_URL);
 		const paddles = createPaddles(scene);
 
+		let gameRunning = true;
+
+		function stopGame() {
+				gameRunning = false;
+		}
+
 		function animate() {
+				if (!gameRunning) return;
 				requestAnimationFrame(animate);
 				updateBall(ball);
 				updatePaddles(paddles, ball, practiceWithAI);
 				checkCollisions(ball, paddles);
-				checkWinLose(ball);
+				checkWinLose(ball, stopGame);
 				renderer.render(scene, camera);
 		}
 
@@ -30,31 +36,32 @@ function initGame(player1Id, player2Id, ballSpeed, practiceWithAI, STATIC_URL) {
 }
 
 function createFloor(scene, STATIC_URL) {
-		const textureLoader = new THREE.TextureLoader();
-		const floorTexture = textureLoader.load(STATIC_URL + 'game_pong/images/floor_texture.png');
-		floorTexture.wrapS = THREE.RepeatWrapping;
-		floorTexture.wrapT = THREE.RepeatWrapping;
-		floorTexture.repeat.set(10, 10);
+	const textureLoader = new THREE.TextureLoader();
+	const floorTexture = textureLoader.load(STATIC_URL + 'game_pong/images/floor_texture.png');
+	floorTexture.wrapS = THREE.RepeatWrapping;
+	floorTexture.wrapT = THREE.RepeatWrapping;
+	floorTexture.repeat.set(10, 10);
 
-		const floorGeometry = new THREE.PlaneGeometry(50, 50);
-		const floorMaterial = new THREE.MeshBasicMaterial({ map: floorTexture });
-		const floor = new THREE.Mesh(floorGeometry, floorMaterial);
-		floor.rotation.x = -Math.PI / 2;
-		scene.add(floor);
-		return floor;
+	const floorGeometry = new THREE.PlaneGeometry(50, 50);
+	const floorMaterial = new THREE.MeshBasicMaterial({ map: floorTexture });
+	const floor = new THREE.Mesh(floorGeometry, floorMaterial);
+	floor.rotation.x = -Math.PI / 2;
+	scene.add(floor);
+	return floor;
 }
 
 function createBall(scene, ballSpeed, STATIC_URL) {
-		const textureLoader = new THREE.TextureLoader();
-		const ballTexture = textureLoader.load(STATIC_URL + 'game_pong/images/bee_texture.png');
-		const ballGeometry = new THREE.BoxGeometry(2, 2, 2);
-		const ballMaterial = new THREE.MeshBasicMaterial({ map: ballTexture });
-		const ball = new THREE.Mesh(ballGeometry, ballMaterial);
-		ball.position.set(0, 1, 0);
-		scene.add(ball);
-		ball.velocity = new THREE.Vector3(ballSpeed, 0, ballSpeed);
-		return ball;
+	const textureLoader = new THREE.TextureLoader();
+	const ballTexture = textureLoader.load(STATIC_URL + 'game_pong/images/bee_texture.png');
+	const ballGeometry = new THREE.BoxGeometry(2, 2, 2);
+	const ballMaterial = new THREE.MeshBasicMaterial({ map: ballTexture });
+	const ball = new THREE.Mesh(ballGeometry, ballMaterial);
+	ball.position.set(0, 1, 0);
+	scene.add(ball);
+	ball.velocity = new THREE.Vector3(ballSpeed, 0, ballSpeed);
+	return ball;
 }
+
 
 function updateBall(ball) {
 		ball.position.add(ball.velocity);
@@ -109,36 +116,40 @@ async function aiControlPaddle(paddle, ball) {
 }
 
 function checkCollisions(ball, paddles) {
-		if (ball.position.distanceTo(paddles.leftPaddle.position) < 3) ball.velocity.x = -ball.velocity.x;
-		if (ball.position.distanceTo(paddles.rightPaddle.position) < 3) ball.velocity.x = -ball.velocity.x;
+	if (ball.position.distanceTo(paddles.leftPaddle.position) < 3) ball.velocity.x = -ball.velocity.x;
+	if (ball.position.distanceTo(paddles.rightPaddle.position) < 3) ball.velocity.x = -ball.velocity.x;
 }
 
-function checkWinLose(ball) {
-		if (ball.position.x > 25) {
-				console.log('Player 1 wins!');
-				sendResultToServer('player1');
-		}
-		if (ball.position.x < -25) {
-				console.log('Player 2 wins!');
-				sendResultToServer('player2');
-		}
+function checkWinLose(ball, stopGameCallback) {
+	if (ball.position.x > 25) {
+			console.log('Player 1 wins!');
+			sendResultToServer('player1');
+			alert('Player 1 wins!');
+			stopGameCallback();
+	}
+	if (ball.position.x < -25) {
+			console.log('Player 2 wins!');
+			sendResultToServer('player2');
+			alert('Player 2 wins!');
+			stopGameCallback();
+	}
 }
 
 function sendResultToServer(winner) {
-		fetch('/api/game_result/', {
-				method: 'POST',
-				headers: {
-						'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({ winner: winner })
-		})
-		.then(response => response.json())
-		.then(data => {
-				console.log('Result sent:', data);
-		})
-		.catch(error => {
-				console.error('Error sending result:', error);
-		});
+		// fetch('/api/game_result/', {
+		// 		method: 'POST',
+		// 		headers: {
+		// 				'Content-Type': 'application/json'
+		// 		},
+		// 		body: JSON.stringify({ winner: winner })
+		// })
+		// .then(response => response.json())
+		// .then(data => {
+		// 		console.log('Result sent:', data);
+		// })
+		// .catch(error => {
+		// 		console.error('Error sending result:', error);
+		// });
 }
 
 const keyIsPressed = {};

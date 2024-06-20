@@ -3,8 +3,8 @@ from pathlib import Path
 from datetime import datetime
 
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# BASE_DIR을 프로젝트의 루트 디렉토리로 설정합니다
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-4ju2n@$f9d0c=h)_g0lbb%k9&@rf(xa$d$g$&5ri$uf)*gev^4'
 
@@ -81,9 +81,9 @@ TEMPLATES = [
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'game_pong/static'),
+    BASE_DIR / 'static',
+    BASE_DIR / 'game_pong/static'
 ]
-
 
 WSGI_APPLICATION = 'django_project.wsgi.application'
 
